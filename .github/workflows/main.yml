@@ -1,0 +1,30 @@
+name: Build Windows release
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Set up MSBuild
+        uses: microsoft/setup-msbuild@v2
+
+      - name: Build Release x64
+        run: msbuild dma/dma.sln /m /p:Configuration=Release /p:Platform=x64
+
+      - name: Upload executable
+        uses: actions/upload-artifact@v4
+        with:
+          name: dma-detect-windows-x64
+          path: dma/dma/x64/Release/dma.exe
+          if-no-files-found: error
