@@ -26,5 +26,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: dma-detect-windows-x64
-          path: dma/dma/x64/Release/dma.exe
+          path: dma/x64/Release/dma.exe
           if-no-files-found: error
